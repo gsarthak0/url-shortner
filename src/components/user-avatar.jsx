@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import avatarImage from "/avatar.png";
 
 const UserAvatar = ({ user, size = "w-10 h-10" }) => {
   const getAvatarUrl = (name) => {
