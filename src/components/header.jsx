@@ -23,8 +23,26 @@ const Header = () => {
   return (
     <>
       <nav className="py-4 flex justify-between items-center">
-        <Link to="/">
-          <img src="/logo.png" className="h-20" alt="ShrinkIt Logo" />
+        <Link to="/" className="flex items-center gap-3">
+          {/* New Logo */}
+          <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg flex items-center justify-center">
+            <svg 
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              className="text-white"
+            >
+              <path 
+                d="M9 7H7C5.89543 7 5 7.89543 5 9V15C5 16.1046 5.89543 17 7 17H9M15 7H17C18.1046 7 19 7.89543 19 9V15C19 16.1046 18.1046 17 17 17H15M9 12H15" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <span className="text-xl font-bold text-white">Shrinklit</span>
         </Link>
         <div className="flex gap-4">
           {!user ? (
