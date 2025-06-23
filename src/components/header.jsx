@@ -57,7 +57,7 @@ const Header = () => {
             <Button onClick={() => navigate("/auth")}>Login</Button>
           ) : (
             <DropdownMenu>
-              <DropdownMenuTrigger className="w-10 h-10 rounded-full overflow-hidden">
+              <DropdownMenuTrigger className="w-10 h-10 rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-cyan-400">
                 <UserAvatar user={user} />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
