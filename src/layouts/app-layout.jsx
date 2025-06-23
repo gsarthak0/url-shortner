@@ -24,7 +24,7 @@ const AppLayout = () => {
             <p className="text-gray-400">
               Made by{" "}
               <a 
-                href="https://github.com/gsarthak0" 
+                href="https://www.linkedin.com/in/sarthakgaikwad0" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-cyan-400 hover:text-cyan-300 underline transition-colors font-medium"
