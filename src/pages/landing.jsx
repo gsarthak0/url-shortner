@@ -117,24 +117,57 @@ const LandingPage = () => {
               <h3 className="text-xl font-semibold text-white mb-2">Lightning Fast</h3>
               <p className="text-gray-400">Generate short URLs in milliseconds</p>
             </div>
+            
+            {/* Detailed Analytics Icon */}
             <div className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
-                  <path d="M9 11H7l3-3 3 3h-2v8h-2v-8z" fill="currentColor"/>
-                  <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z" fill="currentColor"/>
+                  <path d="M3 3v18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-white mb-2">Smart Analytics</h3>
               <p className="text-gray-400">Track clicks and analyze performance</p>
             </div>
+            
+            {/* Detailed QR Code Icon */}
             <div className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+                  <rect x="3" y="3" width="5" height="5" fill="currentColor"/>
+                  <rect x="3" y="16" width="5" height="5" fill="currentColor"/>
+                  <rect x="16" y="3" width="5" height="5" fill="currentColor"/>
+                  <rect x="5" y="5" width="1" height="1" fill="white"/>
+                  <rect x="5" y="18" width="1" height="1" fill="white"/>
+                  <rect x="18" y="5" width="1" height="1" fill="white"/>
+                  <rect x="11" y="5" width="1" height="1" fill="currentColor"/>
+                  <rect x="13" y="5" width="1" height="1" fill="currentColor"/>
+                  <rect x="11" y="7" width="1" height="1" fill="currentColor"/>
+                  <rect x="13" y="7" width="1" height="1" fill="currentColor"/>
+                  <rect x="11" y="11" width="1" height="1" fill="currentColor"/>
+                  <rect x="13" y="11" width="1" height="1" fill="currentColor"/>
+                  <rect x="15" y="11" width="1" height="1" fill="currentColor"/>
+                  <rect x="17" y="11" width="1" height="1" fill="currentColor"/>
+                  <rect x="19" y="11" width="1" height="1" fill="currentColor"/>
+                  <rect x="11" y="13" width="1" height="1" fill="currentColor"/>
+                  <rect x="15" y="13" width="1" height="1" fill="currentColor"/>
+                  <rect x="17" y="13" width="1" height="1" fill="currentColor"/>
+                  <rect x="11" y="15" width="1" height="1" fill="currentColor"/>
+                  <rect x="13" y="15" width="1" height="1" fill="currentColor"/>
+                  <rect x="15" y="15" width="1" height="1" fill="currentColor"/>
+                  <rect x="19" y="15" width="1" height="1" fill="currentColor"/>
+                  <rect x="11" y="17" width="1" height="1" fill="currentColor"/>
+                  <rect x="15" y="17" width="1" height="1" fill="currentColor"/>
+                  <rect x="17" y="17" width="1" height="1" fill="currentColor"/>
+                  <rect x="19" y="17" width="1" height="1" fill="currentColor"/>
+                  <rect x="11" y="19" width="1" height="1" fill="currentColor"/>
+                  <rect x="13" y="19" width="1" height="1" fill="currentColor"/>
+                  <rect x="17" y="19" width="1" height="1" fill="currentColor"/>
+                  <rect x="19" y="19" width="1" height="1" fill="currentColor"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Beautiful Design</h3>
-              <p className="text-gray-400">Clean, modern interface you'll love</p>
+              <h3 className="text-xl font-semibold text-white mb-2">QR Code Ready</h3>
+              <p className="text-gray-400">Auto-generate QR codes for easy sharing</p>
             </div>
           </div>
         </div>
