@@ -9,8 +9,6 @@ import {
 import {logout} from "@/db/apiAuth";
 import useFetch from "@/hooks/use-fetch";
 import UserAvatar from "./user-avatar";
-//import {Avatar, AvatarFallback, AvatarImage} from "@radix-ui/react-avatar";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {LinkIcon, LogOut} from "lucide-react";
 import {Link, useNavigate} from "react-router-dom";
 import {BarLoader} from "react-spinners";
@@ -20,25 +18,21 @@ import {UrlState} from "@/context";
 const Header = () => {
   const {loading, fn: fnLogout} = useFetch(logout);
   const navigate = useNavigate();
-
   const {user, fetchUser} = UrlState();
 
   return (
     <>
       <nav className="py-4 flex justify-between items-center">
         <Link to="/">
-          <img src="/logo.png" className="h-16" alt="Trimrr Logo" />
+          <img src="/logo.png" className="h-20" alt="ShrinkIt Logo" />
         </Link>
         <div className="flex gap-4">
           {!user ? (
             <Button onClick={() => navigate("/auth")}>Login</Button>
           ) : (
             <DropdownMenu>
-              <DropdownMenuTrigger className="w-10 rounded-full overflow-hidden">
-                <Avatar>
-                  <AvatarImage src={user?.user_metadata?.profile_pic} />
-                  <AvatarFallback>PA</AvatarFallback>
-                </Avatar>
+              <DropdownMenuTrigger className="w-10 h-10 rounded-full overflow-hidden">
+                <UserAvatar user={user} />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>

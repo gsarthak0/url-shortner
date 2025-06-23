@@ -29,7 +29,6 @@ const Signup = () => {
     password: "",
   });
 
-
   const handleInputChange = (e) => {
     const {name, value} = e.target;
     setFormData((prevState) => ({
@@ -44,8 +43,7 @@ const Signup = () => {
     if (error === null && data) {
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error, loading]);
+  }, [error, data, navigate, longLink]);
 
   const handleSignup = async () => {
     setErrors([]);
@@ -86,7 +84,6 @@ const Signup = () => {
         {error && <Error message={error?.message} />}
       </CardHeader>
       <CardContent className="space-y-2">
-        {}
         <div className="space-y-1">
           <Input
             name="name"
@@ -114,7 +111,6 @@ const Signup = () => {
           />
         </div>
         {errors.password && <Error message={errors.password} />}
-        {}
       </CardContent>
       <CardFooter>
         <Button onClick={handleSignup}>

@@ -4,9 +4,9 @@ const UserAvatar = ({ user, size = "w-10 h-10" }) => {
   const getAvatarUrl = (name) => {
     if (!name) return null;
     
-    const style = "avataaars"; 
-    const seed = name.toLowerCase().replace(/\s+/g, '');
-    return `https://api.dicebear.com/7.x/${style}/svg?seed=${seed}`;
+    const variant = "beam"; // Options: marble, beam, pixel, sunset, ring, bauhaus
+    const seed = encodeURIComponent(name);
+    return `https://source.boringavatars.com/${variant}/120/${seed}`;
   };
 
   return (

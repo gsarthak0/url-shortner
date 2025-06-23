@@ -34,8 +34,9 @@ const Dashboard = () => {
   }, []);
 
   const filteredUrls = urls?.filter((url) =>
-    url.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  url.title.toLowerCase().includes(searchQuery.toLowerCase())
+  ).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
 
   useEffect(() => {
     if (urls?.length) fnClicks();
@@ -71,7 +72,7 @@ const Dashboard = () => {
       <div className="relative">
         <Input
           type="text"
-          placeholder="Filter Links..."
+          placeholder="Find Links By Name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
