@@ -20,11 +20,18 @@ const Header = () => {
   const navigate = useNavigate();
   const {user, fetchUser} = UrlState();
 
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <nav className="py-4 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-3">
-          {/* New Logo */}
+        {/* Clickable Logo */}
+        <div 
+          onClick={handleLogoClick}
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer"
+        >
           <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg flex items-center justify-center">
             <svg 
               width="20" 
@@ -43,7 +50,8 @@ const Header = () => {
             </svg>
           </div>
           <span className="text-xl font-bold text-white">Shrinklit</span>
-        </Link>
+        </div>
+        
         <div className="flex gap-4">
           {!user ? (
             <Button onClick={() => navigate("/auth")}>Login</Button>
@@ -80,7 +88,7 @@ const Header = () => {
           )}
         </div>
       </nav>
-      {loading && <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />}
+      {loading && <BarLoader className="mb-4" width={"100%"} color="#06b6d4" />}
     </>
   );
 };

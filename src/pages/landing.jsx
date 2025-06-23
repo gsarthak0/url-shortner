@@ -68,7 +68,7 @@ const LandingPage = () => {
                 />
               </svg>
             </div>
-            <h1 className="text-4xl font-bold text-white mb-2">SHRINKLIT</h1>
+            <h1 className="text-4xl font-bold text-white mb-2">SHRINKIT</h1>
           </div>
 
           {/* Main Heading */}

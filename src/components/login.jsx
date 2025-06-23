@@ -1,12 +1,4 @@
 import {Input} from "./ui/input";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
 import {Button} from "./ui/button";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -16,6 +8,7 @@ import {login} from "@/db/apiAuth";
 import {BeatLoader} from "react-spinners";
 import useFetch from "@/hooks/use-fetch";
 import {UrlState} from "@/context";
+import {Mail, Lock} from "lucide-react";
 
 const Login = () => {
   let [searchParams] = useSearchParams();
@@ -45,7 +38,6 @@ const Login = () => {
       fetchUser();
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, data]);
 
   const handleLogin = async () => {
@@ -74,40 +66,53 @@ const Login = () => {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>
-          to your account if you already have one
-        </CardDescription>
-        {error && <Error message={error.message} />}
-      </CardHeader>
-      <CardContent className="space-y-2">
-        <div className="space-y-1">
-          <Input
-            name="email"
-            type="email"
-            placeholder="Enter Email"
-            onChange={handleInputChange}
-          />
+    <div className="space-y-6">
+      {error && <Error message={error.message} />}
+      
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              onChange={handleInputChange}
+              className="pl-10 h-12 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-cyan-400 focus:ring-cyan-400"
+            />
+          </div>
+          {errors.email && <Error message={errors.email} />}
         </div>
-        {errors.email && <Error message={errors.email} />}
-        <div className="space-y-1">
-          <Input
-            name="password"
-            type="password"
-            placeholder="Enter Password"
-            onChange={handleInputChange}
-          />
+        
+        <div className="space-y-2">
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              onChange={handleInputChange}
+              className="pl-10 h-12 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-cyan-400 focus:ring-cyan-400"
+            />
+          </div>
+          {errors.password && <Error message={errors.password} />}
         </div>
-        {errors.password && <Error message={errors.password} />}
-      </CardContent>
-      <CardFooter>
-        <Button onClick={handleLogin}>
-          {loading ? <BeatLoader size={10} color="#36d7b7" /> : "Login"}
-        </Button>
-      </CardFooter>
-    </Card>
+      </div>
+
+      <Button 
+        onClick={handleLogin}
+        className="w-full h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0 font-semibold"
+        disabled={loading}
+      >
+        {loading ? <BeatLoader size={10} color="white" /> : "Sign In"}
+      </Button>
+
+      <div className="text-center">
+        <a href="#" className="text-sm text-cyan-400 hover:text-cyan-300 underline">
+          Forgot your password?
+        </a>
+      </div>
+    </div>
   );
 };
 

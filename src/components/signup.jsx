@@ -2,21 +2,14 @@ import {useEffect, useState} from "react";
 import Error from "./error";
 import {Input} from "./ui/input";
 import * as Yup from "yup";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
 import {Button} from "./ui/button";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {signup} from "@/db/apiAuth";
 import {BeatLoader} from "react-spinners";
 import useFetch from "@/hooks/use-fetch";
+import {User, Mail, Lock} from "lucide-react";
 
-const Signup = () => {
+const Signup = ({ onSwitchToLogin }) => { // Add this prop
   let [searchParams] = useSearchParams();
   const longLink = searchParams.get("createNew");
 
@@ -75,53 +68,77 @@ const Signup = () => {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Signup</CardTitle>
-        <CardDescription>
-          Create a new account if you haven&rsquo;t already
-        </CardDescription>
-        {error && <Error message={error?.message} />}
-      </CardHeader>
-      <CardContent className="space-y-2">
-        <div className="space-y-1">
-          <Input
-            name="name"
-            type="text"
-            placeholder="Enter Name"
-            onChange={handleInputChange}
-          />
+    <div className="space-y-6">
+      {error && <Error message={error?.message} />}
+      
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              name="name"
+              type="text"
+              placeholder="Enter your full name"
+              onChange={handleInputChange}
+              className="pl-10 h-12 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-cyan-400 focus:ring-cyan-400"
+            />
+          </div>
+          {errors.name && <Error message={errors.name} />}
         </div>
-        {errors.name && <Error message={errors.name} />}
-        <div className="space-y-1">
-          <Input
-            name="email"
-            type="email"
-            placeholder="Enter Email"
-            onChange={handleInputChange}
-          />
+        
+        <div className="space-y-2">
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              onChange={handleInputChange}
+              className="pl-10 h-12 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-cyan-400 focus:ring-cyan-400"
+            />
+          </div>
+          {errors.email && <Error message={errors.email} />}
         </div>
-        {errors.email && <Error message={errors.email} />}
-        <div className="space-y-1">
-          <Input
-            name="password"
-            type="password"
-            placeholder="Enter Password"
-            onChange={handleInputChange}
-          />
+        
+        <div className="space-y-2">
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Create a password"
+              onChange={handleInputChange}
+              className="pl-10 h-12 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-cyan-400 focus:ring-cyan-400"
+            />
+          </div>
+          {errors.password && <Error message={errors.password} />}
         </div>
-        {errors.password && <Error message={errors.password} />}
-      </CardContent>
-      <CardFooter>
-        <Button onClick={handleSignup}>
-          {loading ? (
-            <BeatLoader size={10} color="#36d7b7" />
-          ) : (
-            "Create Account"
-          )}
-        </Button>
-      </CardFooter>
-    </Card>
+      </div>
+
+      <Button 
+        onClick={handleSignup}
+        className="w-full h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border-0 font-semibold"
+        disabled={loading}
+      >
+        {loading ? (
+          <BeatLoader size={10} color="white" />
+        ) : (
+          "Create Account"
+        )}
+      </Button>
+
+      <div className="text-center">
+        <p className="text-sm text-gray-400">
+          Already have an account?{" "}
+          <span 
+            className="text-cyan-400 cursor-pointer hover:text-cyan-300 transition-colors"
+            onClick={onSwitchToLogin} // Add click handler
+          >
+            Login instead
+          </span>
+        </p>
+      </div>
+    </div>
   );
 };
 
