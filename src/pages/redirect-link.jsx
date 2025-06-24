@@ -10,32 +10,26 @@ const RedirectLink = () => {
 
   const {loading, data, fn} = useFetch(getLongUrl, id);
 
-  const {loading: loadingStats, fn: fnStats} = useFetch(storeClicks, {
-    id: data?.id,
-    originalUrl: data?.original_url,
-  });
-
   useEffect(() => {
     fn();
   }, []);
 
   useEffect(() => {
-    if (!loading && data) {
-      fnStats();
+    if (!loading && data?.original_url) {
+      // Store click analytics (don't wait for it)
+      if (data.id) {
+        storeClicks({
+          id: data.id,
+          originalUrl: data.original_url,
+        });
+      }
+      
+      // Redirect immediately
+      window.location.href = data.original_url;
     }
   }, [loading, data]);
 
-  // ADD THIS: Redirect after storing the click
-  useEffect(() => {
-    if (!loading && !loadingStats && data?.original_url) {
-      // Add a small delay to ensure click is stored
-      setTimeout(() => {
-        window.location.href = data.original_url;
-      }, 500);
-    }
-  }, [loading, loadingStats, data]);
-
-  if (loading || loadingStats) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col justify-center items-center">
         <BarLoader width={"100%"} color="#06b6d4" />
@@ -44,8 +38,7 @@ const RedirectLink = () => {
     );
   }
 
-  // If no data found, show error
-  if (!loading && !data) {
+  if (!data) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col justify-center items-center">
         <div className="text-center">
