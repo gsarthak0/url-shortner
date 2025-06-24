@@ -9,10 +9,21 @@ const useFetch = (cb, options = {}) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await cb(options, ...args);
+      let response;
+      
+      // If no args provided, use options
+      if (args.length === 0) {
+        response = await cb(options);
+      } else {
+        // If args provided, use them
+        response = await cb(...args);
+      }
+      
+      console.log("useFetch response:", response); // Debug log
       setData(response);
       setError(null);
     } catch (error) {
+      console.error("useFetch error:", error); // Debug log
       setError(error);
     } finally {
       setLoading(false);

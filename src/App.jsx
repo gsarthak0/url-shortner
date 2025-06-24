@@ -39,6 +39,7 @@ const router = createBrowserRouter([
           </RequireAuth>
         ),
       },
+      // CRITICAL: This MUST be the LAST route
       {
         path: "/:id",
         element: <RedirectLink />,
