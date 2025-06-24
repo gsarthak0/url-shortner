@@ -12,7 +12,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {BarLoader, BeatLoader} from "react-spinners";
 
 //const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
-const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
+const CLIENT_URL = import.meta.env.REACT_APP_CLIENT_URL;
 const LinkPage = () => {
   const downloadImage = () => {
     const imageUrl = url?.qr;
