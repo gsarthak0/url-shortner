@@ -105,7 +105,7 @@ const LinkPage = () => {
                         <LinkIcon className="w-4 h-4 text-white" />
                       </div>
                       <a
-                        href={`${clientUrl}/${link}`}
+                        href={`${CLIENT_URL}/${link}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-cyan-400 hover:text-cyan-300 font-medium text-lg flex-1 break-all"
