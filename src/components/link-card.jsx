@@ -6,7 +6,7 @@ import useFetch from "@/hooks/use-fetch";
 import {deleteUrl} from "@/db/apiUrls";
 import {BeatLoader} from "react-spinners";
 
-const CLIENT_URL = import.meta.env.REACT_APP_CLIENT_URL || process.env.REACT_APP_CLIENT_URL;
+const CLIENT_URL = import.meta.env.VITE_CLIENT_URL || process.env.VITE_CLIENT_URL;
 
 const LinkCard = ({url = [], fetchUrls}) => {
   const downloadImage = () => {
