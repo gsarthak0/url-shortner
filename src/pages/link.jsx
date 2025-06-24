@@ -11,6 +11,7 @@ import {useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {BarLoader, BeatLoader} from "react-spinners";
 
+const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 const LinkPage = () => {
   const downloadImage = () => {
     const imageUrl = url?.qr;
@@ -60,7 +61,7 @@ const LinkPage = () => {
   }
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`https://shrinklit-rose.vercel.app/${link}`);
+    navigator.clipboard.writeText(`${CLIENT_URL}/${link}`);
   };
 
   return (
@@ -104,12 +105,12 @@ const LinkPage = () => {
                         <LinkIcon className="w-4 h-4 text-white" />
                       </div>
                       <a
-                        href={`https://shrinklit-rose.vercel.app/${link}`}
+                        href={`${clientUrl}/${link}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-cyan-400 hover:text-cyan-300 font-medium text-lg flex-1 break-all"
                       >
-                        https://shrinklit-rose.vercel.app/{link}
+                        ${CLIENT_URL}/{link}
                       </a>
                       <Button
                         variant="outline"

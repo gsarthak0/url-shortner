@@ -95,7 +95,7 @@ export function CreateLink() {
         {formValues?.longUrl && (
           <div ref={ref} className="flex justify-center p-4 bg-white rounded-lg">
             <QRCode 
-              value={`https://shrinklit-rose.vercel.app/${formValues?.customUrl ? formValues?.customUrl : "link"}`}
+              value={`${import.meta.env.VITE_CLIENT_URL}/${formValues?.customUrl ? formValues?.customUrl : "link"}`}
               size={200}
             />
           </div>

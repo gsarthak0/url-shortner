@@ -6,6 +6,8 @@ import useFetch from "@/hooks/use-fetch";
 import {deleteUrl} from "@/db/apiUrls";
 import {BeatLoader} from "react-spinners";
 
+const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
+
 const LinkCard = ({url = [], fetchUrls}) => {
   const downloadImage = () => {
     const imageUrl = url?.qr;
@@ -22,7 +24,7 @@ const LinkCard = ({url = [], fetchUrls}) => {
   const {loading: loadingDelete, fn: fnDelete} = useFetch(deleteUrl, url.id);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`https://shrinklit-rose.vercel.app/${url?.custom_url ? url?.custom_url : url.short_url}`);
+    navigator.clipboard.writeText(`${CLIENT_URL}/${url?.custom_url ? url?.custom_url : url.short_url}`);
   };
 
   return (
@@ -58,7 +60,7 @@ const LinkCard = ({url = [], fetchUrls}) => {
                   to={`/link/${url?.id}`}
                   className="text-cyan-400 hover:text-cyan-300 font-medium truncate"
                 >
-                  https://shrinklit-rose.vercel.app/{url?.custom_url ? url?.custom_url : url.short_url}
+                  ${CLIENT_URL}/{url?.custom_url ? url?.custom_url : url.short_url}
                 </Link>
               </div>
 
