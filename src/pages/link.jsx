@@ -11,7 +11,8 @@ import {useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {BarLoader, BeatLoader} from "react-spinners";
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
+//const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
+const CLIENT_URL = import.meta.env.VITE_CLIENT_URL;
 const LinkPage = () => {
   const downloadImage = () => {
     const imageUrl = url?.qr;
@@ -108,7 +109,7 @@ const LinkPage = () => {
                         href={`${CLIENT_URL}/${link}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-cyan-400 hover:text-cyan-300 font-medium text-lg flex-1 break-all"
+                        className="text-cyan-400 hover:text-cyan-300 font-medium text-lg flex-1` break-all"
                       >
                         ${CLIENT_URL}/{link}
                       </a>
