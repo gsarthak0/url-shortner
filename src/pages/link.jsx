@@ -60,7 +60,7 @@ const LinkPage = () => {
   }
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`https://shrinklit.com/${link}`);
+    navigator.clipboard.writeText(`https://shrinklit-rose.vercel.app/${link}`);
   };
 
   return (
@@ -104,12 +104,12 @@ const LinkPage = () => {
                         <LinkIcon className="w-4 h-4 text-white" />
                       </div>
                       <a
-                        href={`https://shrinklit.com/${link}`}
+                        href={`https://shrinklit-rose.vercel.app/${link}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-cyan-400 hover:text-cyan-300 font-medium text-lg flex-1 break-all"
                       >
-                        https://shrinklit.com/{link}
+                        https://shrinklit-rose.vercel.app/{link}
                       </a>
                       <Button
                         variant="outline"

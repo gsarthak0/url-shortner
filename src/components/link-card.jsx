@@ -22,7 +22,7 @@ const LinkCard = ({url = [], fetchUrls}) => {
   const {loading: loadingDelete, fn: fnDelete} = useFetch(deleteUrl, url.id);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`https://shrinklit.com/${url?.custom_url ? url?.custom_url : url.short_url}`);
+    navigator.clipboard.writeText(`https://shrinklit-rose.vercel.app/${url?.custom_url ? url?.custom_url : url.short_url}`);
   };
 
   return (
@@ -58,7 +58,7 @@ const LinkCard = ({url = [], fetchUrls}) => {
                   to={`/link/${url?.id}`}
                   className="text-cyan-400 hover:text-cyan-300 font-medium truncate"
                 >
-                  https://shrinklit.com/{url?.custom_url ? url?.custom_url : url.short_url}
+                  https://shrinklit-rose.vercel.app/{url?.custom_url ? url?.custom_url : url.short_url}
                 </Link>
               </div>
 
