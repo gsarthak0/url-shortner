@@ -11,13 +11,41 @@ import {Input} from "@/components/ui/input";
 import {Card} from "@/components/ui/card";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {QRCode} from "react-qr-code";
-import {useRef, useState} from "react";
+import {useRef, useState, useEffect} from "react";
 import * as yup from "yup";
-import Error from "./error";
+import ErrorMessage from "./error"; // RENAMED: Error -> ErrorMessage
 import {createUrl} from "@/db/apiUrls";
 import {BeatLoader} from "react-spinners";
 import useFetch from "@/hooks/use-fetch";
 import {UrlState} from "@/context";
+
+// Utility: Convert SVG element to PNG blob
+async function svgToPngBlob(svgElement, size = 200) {
+  const svgData = new XMLSerializer().serializeToString(svgElement);
+  const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(svgBlob);
+
+  const img = new window.Image();
+  img.width = size;
+  img.height = size;
+
+  return new Promise((resolve, reject) => {
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, size, size);
+      canvas.toBlob((blob) => {
+        URL.revokeObjectURL(url);
+        if (blob) resolve(blob);
+        else reject(new Error("Failed to convert SVG to PNG blob"));
+      }, "image/png");
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
 
 export function CreateLink() {
   const {user} = UrlState();
@@ -50,28 +78,64 @@ export function CreateLink() {
     });
   };
 
-  const {loading, error, fn: fnCreateUrl, data} = useFetch(createUrl, {
-    ...formValues,
-    user_id: user.id,
-  });
+  const {loading, error, fn: fnCreateUrl, data} = useFetch(createUrl);
+
+  // Close dialog and refresh when link is created successfully
+  useEffect(() => {
+    if (data && !loading && !error) {
+      console.log("Link created successfully:", data);
+      setSearchParams({}); 
+      // Navigate to /link/{id} where id is the id of the created link
+      const linkId = data?.id || data?.link?.id;
+      console.log("Navigating to link ID:", data);
+      if (linkId) {
+        navigate(`/link/${linkId}`);
+      } else {
+        navigate("/dashboard"); // fallback
+      }
+    }
+  }, [data, loading, error, setSearchParams, navigate]);
 
   const createNewLink = async () => {
+    console.log("Button clicked");
     setErrors([]);
     try {
+      console.log("Starting validation...");
       await schema.validate(formValues, {abortEarly: false});
-
-      const canvas = ref.current.querySelector("canvas");
-      const blob = await new Promise((resolve) => canvas.toBlob(resolve));
-
-      await fnCreateUrl(blob);
+      
+      console.log("Validation passed, generating QR code...");
+      
+      // Wait a bit for QR code to render
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      const svg = ref.current?.querySelector("svg");
+      if (!svg) {
+        throw new Error("QR code SVG not found");
+      }
+      
+      console.log("SVG found, generating blob...");
+      
+      const blob = await svgToPngBlob(svg, 200);
+      
+      console.log("Blob generated, creating URL...");
+      console.log("Form values:", formValues);
+      
+      await fnCreateUrl({ ...formValues, user_id: user.id }, blob);
+      
     } catch (error) {
-      const newErrors = {};
-
-      error?.inner?.forEach((err) => {
-        newErrors[err.path] = err.message;
-      });
-
-      setErrors(newErrors);
+      console.error("Error creating link:", error);
+      
+      if (error?.inner) {
+        // Validation errors
+        const newErrors = {};
+        error.inner.forEach((err) => {
+          newErrors[err.path] = err.message;
+        });
+        setErrors(newErrors);
+      } else {
+        // Other errors
+        setErrors({ general: error.message });
+      }
     }
   };
 
@@ -95,7 +159,7 @@ export function CreateLink() {
         {formValues?.longUrl && (
           <div ref={ref} className="flex justify-center p-4 bg-white rounded-lg">
             <QRCode 
-              value={`${import.meta.env.VITE_CLIENT_URL}/${formValues?.customUrl ? formValues?.customUrl : "link"}`}
+              value={`https://shrinklit-rose.vercel.app/${formValues?.customUrl || "temp-link"}`}
               size={200}
             />
           </div>
@@ -110,7 +174,7 @@ export function CreateLink() {
               onChange={handleChange}
               className="bg-slate-700 border-slate-600 text-white placeholder:text-gray-400"
             />
-            {errors.title && <Error message={errors.title} />}
+            {errors.title && <ErrorMessage message={errors.title} />}
           </div>
 
           <div>
@@ -121,7 +185,7 @@ export function CreateLink() {
               onChange={handleChange}
               className="bg-slate-700 border-slate-600 text-white placeholder:text-gray-400"
             />
-            {errors.longUrl && <Error message={errors.longUrl} />}
+            {errors.longUrl && <ErrorMessage message={errors.longUrl} />}
           </div>
 
           <div className="flex items-center gap-2">
@@ -137,10 +201,11 @@ export function CreateLink() {
               className="bg-slate-700 border-slate-600 text-white placeholder:text-gray-400"
             />
           </div>
-          {errors.customUrl && <Error message={errors.customUrl} />}
+          {errors.customUrl && <ErrorMessage message={errors.customUrl} />}
         </div>
 
-        {error && <Error message={error.message} />}
+        {error && <ErrorMessage message={error.message} />}
+        {errors.general && <ErrorMessage message={errors.general} />}
 
         <DialogFooter>
           <Button
